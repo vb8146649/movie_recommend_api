@@ -50,9 +50,9 @@ def recommend_by_id(movie_id: int, history_ids: List[int], top_k: int = 20):
 
 # API endpoint
 @app.get("/recommend")
-def get_recommendations(movie_id: int = Query(...), history: List[int] = Query([])):
+def get_recommendations(movie_id: int = Query(...), history: List[int] = Query([]) , top_k: int = Query(...)):
     try:
-        recommended_ids = recommend_by_id(movie_id, history)
+        recommended_ids = recommend_by_id(movie_id, history,top_k)
         return {"movie_ids": recommended_ids}
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))
